@@ -1,6 +1,6 @@
-# COMPILE 
+# RUN
 
 * First run : 
     ``` bash 
-    chmod 755 compile.sh
+    make run 
     ``` 
