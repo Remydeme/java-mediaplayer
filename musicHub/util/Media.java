@@ -40,6 +40,10 @@ public abstract class Media {
         return date;
     }
 
+    public void description(){
+        System.out.println(getID() + " - "+ titre + " " + getDuree() + " " + getDuree());
+    }
+
     public void setDate(Date date) {
         this.date = date;
     }

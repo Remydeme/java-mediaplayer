@@ -1,3 +1,3 @@
 #bin/bash
 
-javac -verbose musicHub/MediaPlayer.java  -classpath . -d bin
+javac -verbose musicHub/MediaPlayer.java  -classpath .

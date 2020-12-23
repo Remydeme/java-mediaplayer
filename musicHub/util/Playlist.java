@@ -96,6 +96,47 @@ public class Playlist extends Media {
         }
     }
 
+
+    // build a playlist from a XML.Node
+    public static List<Media> readElementFromXML(String path) throws JMusicHubFileDoesntExistException{
+        try {
+            File fXmlFile = new File(path);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+
+            doc.getDocumentElement().normalize();
+
+            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList nChansonList = doc.getElementsByTagName("chanson");
+            NodeList nLivreAudioList = doc.getElementsByTagName("livreAudio");
+
+            List<Media> medias = new ArrayList<>();
+            for (int temp = 0; temp < nChansonList.getLength(); temp++) {
+                Node nNode = nChansonList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    Chanson chanson = Chanson.readChansonFronElement(eElement);
+                    medias.add(chanson);
+                }
+            }
+            for (int temp = 0; temp < nLivreAudioList.getLength(); temp++) {
+                Node nNode = nLivreAudioList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    LivreAudio livreAudio = LivreAudio.readLivreAudioFronElement(eElement);
+                    medias.add(livreAudio);
+                }
+            }
+            return medias;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     // write playlist
     public static void writePlaylist(Document document, Playlist p){
         Element album = document.createElement("playlist");
@@ -118,7 +159,9 @@ public class Playlist extends Media {
         }
     }
 
-    // create an xml file and save the build playlist in it
+    /**
+     * create an xml file and save the build playlist in it
+     */
     public static void writePlaylists(String path, List<Playlist> playlists) throws UnsupportedEncodingException {
         Document document = null;
         DocumentBuilderFactory fabrique = null;
@@ -135,9 +178,10 @@ public class Playlist extends Media {
             e.printStackTrace();
         }
     }
-
-    // Create a list of playlist from an XML File
-    public static List<Media> readLivreAudioFromXLM(String path) throws JMusicHubFileDoesntExistException {
+    /**
+     * Create a list of playlist from an XML File
+     * */
+    public static List<Media> readPlaylistsFromXLM(String path) throws JMusicHubFileDoesntExistException {
         try {
 
             File fXmlFile = new File(path);
