@@ -35,13 +35,13 @@ public class mediaPlayer {
         try {
             List<Media> playlists = null;
             try {
-                playlists = Playlist.readLivreAudioFromXLM("../files/playlist.xml");
+                playlists = Playlist.readLivreAudioFromXLM("files/playlist.xml");
             } catch (JMusicHubFileDoesntExistException e) {
                 e.printStackTrace();
             }
             List<Media> albums = null;
             try {
-                albums = Album.readAlbumsFromXLM("../files/albums.xml");
+                albums = Album.readAlbumsFromXLM("files/albums.xml");
             } catch (JMusicHubFileDoesntExistException e) {
                 e.printStackTrace();
             }

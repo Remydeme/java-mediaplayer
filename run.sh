@@ -1,1 +1,1 @@
-java musicHub.main
+java MusicHub
