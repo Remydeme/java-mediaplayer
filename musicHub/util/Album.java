@@ -1,4 +1,4 @@
-package util;
+package musicHub.util;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -10,18 +10,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import org.w3c.dom.*;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-
-import static java.security.AccessController.getContext;
 
 public class Album extends MusicMedia {
     // publication date

@@ -1,1 +1,1 @@
-java MusicHub
+java -cp . musicHub.MediaPlayer

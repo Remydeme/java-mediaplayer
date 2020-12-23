@@ -1,4 +1,4 @@
-package util;
+package musicHub.util;
 
 public enum Langue {
     Francais,

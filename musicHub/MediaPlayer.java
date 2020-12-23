@@ -1,4 +1,4 @@
-package musicHub.business;
+package musicHub;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -8,10 +8,17 @@ import java.util.Map;
 /**
  * Media player store the albums, element and playlist
  * */
-import util.*;
+import musicHub.util.*;
+import musicHub.util.JMusicHubFileDoesntExistException;
 
-public class mediaPlayer {
+public class MediaPlayer {
     Map<String, List<Media>> mediaplayer = new HashMap<String, List<Media>>();
+
+
+    static public void main(String[] args){
+        MediaPlayer mp = new MediaPlayer();
+        mp.run();
+    }
 
     // this method take a list of media and a key in parameter and put them in the mediaplayermap
     void addMedia(String key, List<Media> mediaList) {
@@ -54,7 +61,7 @@ public class mediaPlayer {
             while (isOn){
                 switch (choice[0]){
                     case 'h':
-                        mediaPlayer.help();
+                        MediaPlayer.help();
                         break;
                     case 'a':
 

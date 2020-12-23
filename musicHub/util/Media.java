@@ -1,9 +1,9 @@
-package util;
+package musicHub.util;
 
 import java.util.Date;
 
 public abstract class Media {
-    // util.Media title
+    // musicHub.util.Media title
     protected String titre;
     // Delay in secondes
     protected int Duree;

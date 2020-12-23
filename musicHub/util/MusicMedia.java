@@ -1,4 +1,4 @@
-package util;
+package musicHub.util;
 
 abstract class MusicMedia extends Media {
     protected String chanteur;

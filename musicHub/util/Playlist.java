@@ -1,4 +1,4 @@
-package util;
+package musicHub.util;
 
 import org.w3c.dom.*;
 
@@ -7,9 +7,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Playlist extends Media {
@@ -157,7 +155,7 @@ public class Playlist extends Media {
             List<Media> playlists = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
-                var playlist = util.Playlist.readPlaylistFromNode(nNode);
+                var playlist = musicHub.util.Playlist.readPlaylistFromNode(nNode);
                 playlists.add(playlist);
             }
             return playlists;
