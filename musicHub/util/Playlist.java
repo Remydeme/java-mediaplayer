@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Playlist extends Media {
+public class Playlist extends Media implements Comparable<Playlist>{
 
     protected List<Media> medias = new ArrayList<>();
 
@@ -57,47 +57,19 @@ public class Playlist extends Media {
         }
     }
 
-    // build a playlist from a XML.Node
-    public static Playlist readPlaylistFromNode(Node node){
-        try {
-            var playlistNode = (Element)node;
-            NodeList nChansonList = playlistNode.getElementsByTagName("chanson");
-            NodeList nLivreAudioList = playlistNode.getElementsByTagName("livreAudio");
-            System.out.println("----------------------------");
-            Playlist playlist = new Playlist();
-            int playlistDuree = Integer.parseInt(playlistNode.getElementsByTagName("duree").item(0).getTextContent());
-            var playlistTitre  = playlistNode.getElementsByTagName("titre").item(0).getTextContent();
-            String albumId = playlistNode.getAttribute("id");
-            playlist.setDuree(playlistDuree);
-            playlist.setTitre(playlistTitre);
-            playlist.setID(albumId);
-            for (int temp = 0; temp < nChansonList.getLength(); temp++) {
-                Node nNode = nChansonList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    Chanson chanson = Chanson.readChansonFronElement(eElement);
-                    playlist.addMedia(chanson);
-                }
-            }
-            for (int temp = 0; temp < nLivreAudioList.getLength(); temp++) {
-                Node nNode = nLivreAudioList.item(temp);
-                System.out.println("\nCurrent Element :" + nNode.getNodeName());
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    LivreAudio livreAudio = LivreAudio.readLivreAudioFronElement(eElement);
-                    playlist.addMedia(livreAudio);
-                }
-            }
-            return playlist;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    @Override
+    public int compareTo(Playlist o){
+        if (this.titre != null && o.titre != null){
+            return this.titre.compareTo(o.titre);
         }
+        return 1;
     }
 
 
-    // build a playlist from a XML.Node
+
+    /**
+     * build a list<Media> reading the element.xml file
+     */
     public static List<Media> readElementFromXML(String path) throws JMusicHubFileDoesntExistException{
         try {
             File fXmlFile = new File(path);
@@ -137,7 +109,9 @@ public class Playlist extends Media {
         }
     }
 
-    // write playlist
+    /**
+     * Write a playlist in an xml file
+     * */
     public static void writePlaylist(Document document, Playlist p){
         Element album = document.createElement("playlist");
         Attr monAttribut = document.createAttribute("id");
@@ -162,7 +136,7 @@ public class Playlist extends Media {
     /**
      * create an xml file and save the build playlist in it
      */
-    public static void writePlaylists(String path, List<Playlist> playlists) throws UnsupportedEncodingException {
+    public static void writePlaylists(String path, List<Media> playlists) throws UnsupportedEncodingException {
         Document document = null;
         DocumentBuilderFactory fabrique = null;
         try {
@@ -171,8 +145,8 @@ public class Playlist extends Media {
             document = builder.newDocument();
             Element racine = (Element) document.createElement("playlists");
             document.appendChild(racine);
-            for (Playlist playlist : playlists){
-                Playlist.writePlaylist(document, playlist);
+            for (Media m : playlists){
+                Playlist.writePlaylist(document, (Playlist) m);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -193,12 +167,12 @@ public class Playlist extends Media {
 
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
-            NodeList nList = doc.getElementsByTagName("playlists");
+            NodeList nList = doc.getElementsByTagName("playlist");
 
             System.out.println("----------------------------");
             List<Media> playlists = new ArrayList<>();
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+            for (int index = 0; index < nList.getLength(); index++) {
+                Node nNode = nList.item(index);
                 var playlist = musicHub.util.Playlist.readPlaylistFromNode(nNode);
                 playlists.add(playlist);
             }
@@ -210,4 +184,45 @@ public class Playlist extends Media {
         }
         return null;
     }
+    /**
+     * build a playlist from a XML.Node
+     */
+    public static Playlist readPlaylistFromNode(Node node){
+        try {
+            var playlistNode = (Element)node;
+            NodeList nChansonList = playlistNode.getElementsByTagName("chanson");
+            NodeList nLivreAudioList = playlistNode.getElementsByTagName("livreAudio");
+            System.out.println("----------------------------");
+            Playlist playlist = new Playlist();
+            int playlistDuree = Integer.parseInt(playlistNode.getElementsByTagName("duree").item(0).getTextContent());
+            var playlistTitre  = playlistNode.getElementsByTagName("titre").item(0).getTextContent();
+            String albumId = playlistNode.getAttribute("id");
+            playlist.setDuree(playlistDuree);
+            playlist.setTitre(playlistTitre);
+            playlist.setID(albumId);
+            for (int temp = 0; temp < nChansonList.getLength(); temp++) {
+                Node nNode = nChansonList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    Chanson chanson = Chanson.readChansonFronElement(eElement);
+                    playlist.addMedia(chanson);
+                }
+            }
+            for (int temp = 0; temp < nLivreAudioList.getLength(); temp++) {
+                Node nNode = nLivreAudioList.item(temp);
+                System.out.println("\nCurrent Element :" + nNode.getNodeName());
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    LivreAudio livreAudio = LivreAudio.readLivreAudioFronElement(eElement);
+                    playlist.addMedia(livreAudio);
+                }
+            }
+            return playlist;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

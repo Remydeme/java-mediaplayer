@@ -31,13 +31,13 @@
     </album>
     <album id="456789">
         <duree>400</duree>
-        <titre>Raggar San</titre>
+        <titre>Pipot San</titre>
         <artiste>San 3</artiste>
         <chanson id = "1">
             <titre>orelsan</titre>
             <artiste>san</artiste>
             <duree>123</duree>
-            <date>21/11/2020</date>
+            <date>11/11/1999</date>
             <genre>Jazz</genre>
             <contenue>Allo Allo</contenue>
         </chanson>
@@ -45,6 +45,35 @@
             <titre>monde</titre>
             <artiste>kad</artiste>
             <duree>124</duree>
+            <date>21/11/2020</date>
+            <genre>Jazz</genre>
+            <contenue>Allo Allo</contenue>
+        </chanson>
+        <chanson id = "3">
+            <titre>lol</titre>
+            <artiste>kad</artiste>
+            <duree>200</duree>
+            <date>21/11/2020</date>
+            <genre>Jazz</genre>
+            <contenue>Allo Allo</contenue>
+        </chanson>
+    </album>
+    <album id="5678">
+        <duree>400</duree>
+        <titre>Raggar San</titre>
+        <artiste>San 3</artiste>
+        <chanson id = "1">
+            <titre>orelsan</titre>
+            <artiste>san</artiste>
+            <duree>100</duree>
+            <date>21/11/2020</date>
+            <genre>Jazz</genre>
+            <contenue>Allo Allo</contenue>
+        </chanson>
+        <chanson id = "2">
+            <titre>monde</titre>
+            <artiste>kad</artiste>
+            <duree>100</duree>
             <date>21/11/2020</date>
             <genre>Jazz</genre>
             <contenue>Allo Allo</contenue>

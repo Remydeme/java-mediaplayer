@@ -13,7 +13,7 @@ import java.io.File;
 
 import org.w3c.dom.*;
 
-public class Album extends MusicMedia {
+public class Album extends MusicMedia implements Comparable<Album>{
     // publication date
     protected Date sortie;
     protected List<Chanson> chansons = new ArrayList<>();
@@ -142,6 +142,14 @@ public class Album extends MusicMedia {
         }
     }
 
+    @Override
+    public int compareTo(Album o){
+        if (this.date != null && o.date != null){
+            return this.date.compareTo(o.date);
+        }
+        return 1;
+    }
+
     // read albums from XML file
     public static List<Media> readAlbumsFromXLM(String path) throws JMusicHubFileDoesntExistException {
         try {
@@ -192,7 +200,7 @@ public class Album extends MusicMedia {
         }
     }
 
-    public static void writeAlbums(String path, List<Album> albums) throws UnsupportedEncodingException {
+    public static void writeAlbums(String path, List<Media> albums) throws UnsupportedEncodingException {
         Document document = null;
         DocumentBuilderFactory fabrique = null;
         try {
@@ -201,8 +209,8 @@ public class Album extends MusicMedia {
             document = builder.newDocument();
             Element racine = (Element) document.createElement("albums");
             document.appendChild(racine);
-            for (Album album : albums){
-                Album.writeAlbum(document, album);
+            for (Media m : albums){
+                Album.writeAlbum(document, (Album) m);
             }
         } catch (Exception e) {
             e.printStackTrace();

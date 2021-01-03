@@ -4,7 +4,11 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 public class LivreAudio extends  Media {
 
@@ -86,6 +90,78 @@ public class LivreAudio extends  Media {
         super.setID(ID);
     }
 
+    /**
+     * Create a new audio book
+     * */
+    public static LivreAudio createAudioBook(){
+        Scanner scan = new Scanner(System.in);
+        LivreAudio livreAudio = new  LivreAudio();
+        System.out.println("\n \n Create a new audio book  \n ");
+        System.out.println("|----- Entrer le contenue du livre audio -------|\n ");
+        String contenue = scan.nextLine();
+        System.out.println("|----- Entrer le titre -------|\n ");
+        String titre = scan.nextLine();
+        System.out.println("|----- Entrer le nom de l'auteur du livre audio -------|\n ");
+        String auteur = scan.nextLine();
+        System.out.println("|----- Entrer la duree du livre audio -------|\n ");
+        int duree = scan.nextInt();
+        System.out.println("|----- Entrer l'id du livre audio -------|\n ");
+        String id = scan.nextLine();
+        Langue langue = choisirLaLangue();
+        Categorie categorie = choisirLaCategorie();
+
+        livreAudio.auteur = auteur;
+        livreAudio.contenue = contenue;
+        livreAudio.langue = langue;
+        livreAudio.ID = id;
+        livreAudio.date = Calendar.getInstance().getTime();
+        livreAudio.titre = titre;
+        livreAudio.Duree = duree;
+        livreAudio.categorie  = categorie;
+        return livreAudio;
+    }
+
+    public static Langue choisirLaLangue() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("|Quel est la langue de votre livre|\n ");
+        System.out.println("|1- Francais |\n|2- Anglais |\n|3- Espagnol |\n|4- Allemand |\n|5- Italien |\n ");
+        int index = scan.nextInt();
+        switch (index){
+            case 1:
+                return Langue.Francais;
+            case 2:
+                return Langue.Anglais;
+            case 3:
+                return Langue.Espagnol;
+            case 4:
+                return Langue.Allemand;
+            case 5:
+                return Langue.Italien;
+            default:
+                return Langue.Anglais;
+        }
+    }
+
+    public static Categorie choisirLaCategorie() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("|Quel est la categorie de votre livre|\n ");
+        System.out.println("|1- Documentaire |\n|2- Discours |\n|3- Jeunesse |\n|4- Roman |\n|5- Theatre |\n ");
+        int index = scan.nextInt();
+        switch (index){
+            case 1:
+                return Categorie.Documentaire;
+            case 2:
+                return Categorie.Discours;
+            case 3:
+                return Categorie.Jeunesse;
+            case 4:
+                return Categorie.Roman;
+            case 5:
+                return Categorie.Theatre;
+            default:
+                return Categorie.Roman;
+        }
+    }
 
     public static void writeLivreAudio(Document document, LivreAudio l){
         Element livreAudio = document.createElement("livreAudio");

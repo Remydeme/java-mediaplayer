@@ -4,7 +4,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Chanson extends MusicMedia {
 
@@ -76,6 +78,56 @@ public class Chanson extends MusicMedia {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    /**
+     * Create a new audio book
+     * */
+    public static Chanson createSong(){
+        Scanner scan = new Scanner(System.in);
+        Chanson chanson = new Chanson();
+        System.out.println("\n \n Enregistrer une nouvelle chanson \n ");
+        System.out.println("|----- Entrer les paroles de la chanson -------|\n ");
+        String contenue = scan.nextLine();
+        System.out.println("|----- Entrer le titre -------|\n ");
+        String titre = scan.nextLine();
+        System.out.println("|----- Entrer le nom du chanteur -------|\n ");
+        String auteur = scan.nextLine();
+        System.out.println("|----- Entrer la duree de la chanson-------|\n ");
+        int duree = scan.nextInt();
+        System.out.println("|----- Entrer l'id de la chanson-------|\n ");
+        String id = scan.nextLine();
+        Genre genre = choisirGenre();
+
+        chanson.chanteur = auteur;
+        chanson.contenue = contenue;
+        chanson.genre = genre;
+        chanson.ID = id;
+        chanson.date = Calendar.getInstance().getTime();
+        chanson.titre = titre;
+        chanson.Duree = duree;
+        return chanson;
+    }
+
+    public static Genre choisirGenre() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("|Quel est le genre de votre chanson |\n ");
+        System.out.println("|1- HipHop |\n|2- Jazz |\n|3- Classique |\n|4- Rap|\n|5- Rock |\n ");
+        int index = scan.nextInt();
+        switch (index){
+            case 1:
+                return Genre.HipHop;
+            case 2:
+                return Genre.Jazz;
+            case 3:
+                return Genre.Classique;
+            case 4:
+                return Genre.Rap;
+            case 5:
+                return Genre.Rock;
+            default:
+                return Genre.Classique;
+        }
     }
 
     public static void writeAlbum(Document document, Chanson c){

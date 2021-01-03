@@ -2,7 +2,7 @@ package musicHub.util;
 
 import java.util.Date;
 
-public abstract class Media {
+public abstract class Media{
     // musicHub.util.Media title
     protected String titre;
     // Delay in secondes
